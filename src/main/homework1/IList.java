@@ -17,4 +17,6 @@ public interface IList {
 
     void printList();
 
+    Node getIndex(int index);
+
 }

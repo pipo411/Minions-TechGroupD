@@ -71,11 +71,19 @@ public class CustomList implements IList {
     public void printList() {
         Node currentNode = head;
         while (true) {
-            System.out.println(currentNode.value);
             if (currentNode.next == null) {
                 break;
             }
             currentNode = currentNode.next;
         }
+    }
+
+    @Override
+    public Node getIndex(int index) {
+        Node currentNode = head;
+        for (int i = 0; i < index; i++) {
+            currentNode = currentNode.next;
+        }
+        return currentNode;
     }
 }
