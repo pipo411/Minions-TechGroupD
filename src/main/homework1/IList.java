@@ -1,13 +1,12 @@
 package homework1;
 
-public interface IList {
+public interface IList<T>  {
 
-    void add(int index, int value);
+    void add(int index, T value);
 
-    void addFirst(int value);
+    void addFirst(T value);
 
-    void addLast(int value);
-
+    void addLast(T value);
 
     void remove(int index);
 

@@ -5,7 +5,7 @@ public class CustomList implements IList {
     Node tail;
 
     @Override
-    public void add(int index, int value) {
+    public void add(int index, Object value) {
         Node newNode = new Node(value);
         Node currentNode = head;
 
@@ -21,7 +21,7 @@ public class CustomList implements IList {
     }
 
     @Override
-    public void addFirst(int value) {
+    public void addFirst(Object value) {
         Node newNode = new Node(value);
         if (head == null) {
             head = newNode;
@@ -33,7 +33,7 @@ public class CustomList implements IList {
     }
 
     @Override
-    public void addLast(int value) {
+    public void addLast(Object value) {
         Node newNode = new Node(value);
         if (tail == null) {
             tail = newNode;
@@ -71,6 +71,7 @@ public class CustomList implements IList {
     public void printList() {
         Node currentNode = head;
         while (true) {
+            System.out.println(currentNode.value);
             if (currentNode.next == null) {
                 break;
             }

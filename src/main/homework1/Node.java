@@ -1,10 +1,10 @@
 package homework1;
 
-public class Node {
+public class Node<T> {
     Node next;
-    int value;
+    T value;
 
-    public Node(int value) {
+    public Node(T value) {
         this.value = value;
         this.next = null;
     }
