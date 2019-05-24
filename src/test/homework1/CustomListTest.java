@@ -6,14 +6,14 @@ import static org.junit.Assert.assertNotEquals;
 
 public class CustomListTest {
 
-    private CustomList customList;
+    private CustomList<Object> customList;
 
     /**
      * Init list object.
      */
     @org.junit.Before
     public void init() {
-        customList = new CustomList();
+        customList = new CustomList<Object>();
     }
 
 

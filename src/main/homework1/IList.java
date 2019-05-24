@@ -65,4 +65,8 @@ public interface IList<T> {
      * @return node value
      */
     Node getIndex(int index);
+
+    Node getFirst();
+
+    Node getLast();
 }
