@@ -3,17 +3,17 @@ package custom_tree;
 /**
  * Node class.
  */
-public class Node<T> {
+public class Node {
     Node right;
     Node left;
-    T value;
+    int value;
 
     /**
      * Constructor node class.
      *
      * @param value generic data type value.
      */
-    public Node(T value) {
+    public Node(int value) {
         this.value = value;
         this.right = null;
         this.left = null;

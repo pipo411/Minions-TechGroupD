@@ -4,7 +4,7 @@ public class CustomTree {
 
     Node root;
 
-    public void add(Object value) {
+    public void add(int value) {
         Node newNode = new Node(value);
         if (root == null) {
             this.root = newNode;
@@ -13,7 +13,7 @@ public class CustomTree {
         }
     }
 
-    public void addNode(Node newNode, Node customRoot) {
+    private void addNode(Node newNode, Node customRoot) {
         Node currentNode = customRoot;
         if (newNode.value <= customRoot.value) {
             if (currentNode.left == null) {
@@ -30,4 +30,17 @@ public class CustomTree {
         }
     }
 
+    public void printCustomTree() {
+        this.internalPrint(this.root);
+    }
+
+    private void internalPrint(Node currentRoot) {
+        System.out.println(currentRoot.value);
+        if (currentRoot.left != null) {
+            this.internalPrint(currentRoot.left);
+        }
+        if (currentRoot.right != null) {
+            this.internalPrint(currentRoot.right);
+        }
+    }
 }
