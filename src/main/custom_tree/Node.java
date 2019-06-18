@@ -6,6 +6,7 @@ package custom_tree;
 public class Node {
     Node right;
     Node left;
+    int fe;
     int value;
 
     /**
@@ -17,6 +18,7 @@ public class Node {
         this.value = value;
         this.right = null;
         this.left = null;
+        this.fe = 0;
     }
 }
 
