@@ -28,6 +28,21 @@ public class CustomTree {
                 this.addNode(newNode, currentNode.right);
             }
         }
+        newNode.fe = this.getNodeFe(newNode.right) - this.getNodeFe(newNode.left);
+        System.out.println("fe is  "+newNode.fe );
+        this.verifyBalance(this.root);
+    }
+
+    private void verifyBalance(Node node) {
+        if (node == null) {
+            return;
+        }
+        this.verifyBalance(node.left);
+        System.out.println("FE is "+node.fe);
+        if(this.getBalance(node) == 2){
+            this.rigthRotate(node);
+        }
+        this.verifyBalance(node.right);
     }
 
     private int getNodeFe(Node node) {
@@ -45,7 +60,7 @@ public class CustomTree {
         return aux;
     }
 
-    public Node rigthRotate(Node currentNode) {
+    private Node rigthRotate(Node currentNode) {
         Node aux = currentNode.left;
         currentNode.left = aux.right;
         aux.right = currentNode;
@@ -54,17 +69,47 @@ public class CustomTree {
         return aux;
     }
 
-    public void printCustomTree() {
-        this.internalPrint(this.root);
+
+    private int getBalance(Node node) {
+        return this.getNodeFe(node.right) - this.getNodeFe(node.left);
     }
 
-    private void internalPrint(Node currentRoot) {
+    public void preOrden() {
+        this.preOrdenAux(this.root);
+    }
+
+    private void preOrdenAux(Node currentRoot) {
+        if (currentRoot == null) {
+            return;
+        }
         System.out.println(currentRoot.value);
-        if (currentRoot.left != null) {
-            this.internalPrint(currentRoot.left);
+        this.preOrdenAux(currentRoot.left);
+        this.preOrdenAux(currentRoot.right);
+    }
+
+    public void inOrden() {
+        this.inOrdenAux(this.root);
+    }
+
+    private void inOrdenAux(Node node) {
+        if (node == null) {
+            return;
         }
-        if (currentRoot.right != null) {
-            this.internalPrint(currentRoot.right);
+        this.inOrdenAux(node.left);
+        System.out.println(node.value);
+        this.inOrdenAux(node.right);
+    }
+
+    public void postOrden() {
+        this.postOrdenAux(this.root);
+    }
+
+    private void postOrdenAux(Node node) {
+        if (node == null) {
+            return;
         }
+        this.postOrdenAux(node.right);
+        System.out.println(node.value);
+        this.postOrdenAux(node.left);
     }
 }
