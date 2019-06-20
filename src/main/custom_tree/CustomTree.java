@@ -28,9 +28,17 @@ public class CustomTree {
                 this.addNode(newNode, currentNode.right);
             }
         }
-        newNode.fe = this.getNodeFe(newNode.right) - this.getNodeFe(newNode.left);
-        System.out.println("fe is  "+newNode.fe );
-        this.verifyBalance(this.root);
+        newNode.fe = 1 + Math.max(this.getNodeFe(newNode.right), this.getNodeFe(newNode.left));
+        int balance = this.getBalance(newNode);
+        System.out.println("fe is  " + balance);
+//        this.verifyBalance(this.root);
+    }
+
+    public int getFe(Node node) {
+        if (node == null) {
+            return 0;
+        }
+        return this.getNodeFe(node.right) - this.getNodeFe(node.left);
     }
 
     private void verifyBalance(Node node) {
@@ -38,8 +46,8 @@ public class CustomTree {
             return;
         }
         this.verifyBalance(node.left);
-        System.out.println("FE is "+node.fe);
-        if(this.getBalance(node) == 2){
+        System.out.println("FE is " + this.getFe(node));
+        if (this.getBalance(node) == 2) {
             this.rigthRotate(node);
         }
         this.verifyBalance(node.right);
@@ -60,12 +68,15 @@ public class CustomTree {
         return aux;
     }
 
-    private Node rigthRotate(Node currentNode) {
+    public Node rigthRotate(Node currentNode) {
         Node aux = currentNode.left;
         currentNode.left = aux.right;
         aux.right = currentNode;
         currentNode.fe = Math.max(this.getNodeFe(currentNode.right), this.getNodeFe(currentNode.left)) + 1;
         aux.fe = Math.max(this.getNodeFe(aux.right), this.getNodeFe(aux.left)) + 1;
+        System.out.println("++++++++++++++++++++++++++++++++++++");
+        preOrdenAux(aux);
+        System.out.println("++++++++++++++++++++++++++++++++++++");
         return aux;
     }
 
