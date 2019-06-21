@@ -5,85 +5,75 @@ public class CustomTree {
     Node root;
 
     public void add(int value) {
-        Node newNode = new Node(value);
-        if (root == null) {
+        this.addNode(this.root, new Node(value));
+
+    }
+
+    private void addNode(Node customRoot, Node newNode) {
+        if (customRoot == null) {
             this.root = newNode;
         } else {
-            this.addNode(newNode, this.root);
+            if (newNode.value <= customRoot.value) {
+                if (customRoot.left == null) {
+                    customRoot.left = newNode;
+                } else {
+                    this.addNode(customRoot.left, newNode);
+                }
+            } else {
+                if (customRoot.right == null) {
+                    customRoot.right = newNode;
+                } else {
+                    this.addNode(customRoot.right, newNode);
+                }
+            }
         }
-    }
 
-    private void addNode(Node newNode, Node customRoot) {
-        Node currentNode = customRoot;
-        if (newNode.value <= customRoot.value) {
-            if (currentNode.left == null) {
-                currentNode.left = newNode;
-            } else {
-                this.addNode(newNode, currentNode.left);
-            }
-        } else {
-            if (currentNode.right == null) {
-                currentNode.right = newNode;
-            } else {
-                this.addNode(newNode, currentNode.right);
-            }
-        }
-        newNode.fe = 1 + Math.max(this.getNodeFe(newNode.right), this.getNodeFe(newNode.left));
+        newNode.height = 1 + Math.max(this.getHeight(newNode.right), this.getHeight(newNode.right));
         int balance = this.getBalance(newNode);
-        System.out.println("fe is  " + balance);
-//        this.verifyBalance(this.root);
+
+        if (balance > 1) {
+            this.rightRotate(newNode);
+        }
+        if (balance < -1) {
+            this.leftRotate(newNode);
+        }
+
     }
 
-    public int getFe(Node node) {
+    public int getHeight(Node node) {
         if (node == null) {
             return 0;
         }
-        return this.getNodeFe(node.right) - this.getNodeFe(node.left);
+        return node.height;
     }
 
-    private void verifyBalance(Node node) {
-        if (node == null) {
-            return;
-        }
-        this.verifyBalance(node.left);
-        System.out.println("FE is " + this.getFe(node));
-        if (this.getBalance(node) == 2) {
-            this.rigthRotate(node);
-        }
-        this.verifyBalance(node.right);
-    }
-
-    private int getNodeFe(Node node) {
+    public int getBalance(Node node) {
         if (node == null)
-            return -1;
-        return node.fe;
+            return 0;
+        return this.getHeight(node.right) - this.getHeight(node.left);
     }
+
 
     public Node leftRotate(Node currentNode) {
+        System.out.println("Entro leftRotate");
         Node aux = currentNode.right;
         currentNode.right = aux.left;
         aux.right = currentNode;
-        currentNode.fe = Math.max(this.getNodeFe(currentNode.right), this.getNodeFe(currentNode.left)) + 1;
-        aux.fe = Math.max(this.getNodeFe(aux.right), this.getNodeFe(aux.left)) + 1;
+        currentNode.height = Math.max(this.getHeight(currentNode.right), this.getHeight(currentNode.left)) + 1;
+        aux.height = Math.max(this.getHeight(aux.right), this.getHeight(aux.left)) + 1;
         return aux;
     }
 
-    public Node rigthRotate(Node currentNode) {
+    public Node rightRotate(Node currentNode) {
+        System.out.println("Entro rightRotate");
         Node aux = currentNode.left;
         currentNode.left = aux.right;
         aux.right = currentNode;
-        currentNode.fe = Math.max(this.getNodeFe(currentNode.right), this.getNodeFe(currentNode.left)) + 1;
-        aux.fe = Math.max(this.getNodeFe(aux.right), this.getNodeFe(aux.left)) + 1;
-        System.out.println("++++++++++++++++++++++++++++++++++++");
-        preOrdenAux(aux);
-        System.out.println("++++++++++++++++++++++++++++++++++++");
+        currentNode.height = Math.max(this.getHeight(currentNode.right), this.getHeight(currentNode.left)) + 1;
+        aux.height = Math.max(this.getHeight(aux.right), this.getHeight(aux.left)) + 1;
         return aux;
     }
 
-
-    private int getBalance(Node node) {
-        return this.getNodeFe(node.right) - this.getNodeFe(node.left);
-    }
 
     public void preOrden() {
         this.preOrdenAux(this.root);
